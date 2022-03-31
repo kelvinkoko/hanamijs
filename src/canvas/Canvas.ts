@@ -12,8 +12,8 @@ export default class Canvas {
   drawLine(x1: number, y1: number, x2: number, y2: number) {
     var redLine = new Line({
       points: [x1, y1, x2, y2],
-      stroke: "#ff00ff",
-      strokeWidth: 15
+      stroke: "#000000",
+      strokeWidth: 1
     });
     this.layer.add(redLine);
   }

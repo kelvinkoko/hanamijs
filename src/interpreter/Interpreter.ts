@@ -3,11 +3,11 @@ import Canvas from "../canvas/Canvas";
 export default class Interpreter {
   constructor(private canvas: Canvas) {}
 
-  private readonly LINE_LENGTH = 50;
-  private readonly ROTATE_ANGLE = 15;
+  private readonly LINE_LENGTH = 3;
+  private readonly ROTATE_ANGLE = 20;
   private readonly INIT_STATE = {
     x: 200,
-    y: 300,
+    y: 500,
     angle: 0
   };
 
