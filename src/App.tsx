@@ -7,7 +7,7 @@ class App extends React.Component {
   render() {
     const canvas = new Canvas("canvas");
     const interpreter = new Interpreter(canvas);
-    interpreter.interpret("FF");
+    interpreter.interpret("F+F+F-F-F");
     return (
       <>
         <h1>Hello</h1>

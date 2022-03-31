@@ -4,6 +4,7 @@ export default class Interpreter {
   constructor(private canvas: Canvas) {}
 
   private readonly LINE_LENGTH = 50;
+  private readonly ROTATE_ANGLE = 15;
 
   private currentState: CursorState = {
     x: 200,
@@ -19,19 +20,37 @@ export default class Interpreter {
   };
 
   private execute = (command: string) => {
-    const currentX = this.currentState.x;
-    const currentY = this.currentState.y;
     switch (command) {
       case "F": {
-        this.canvas.drawLine(
-          currentX,
-          currentY,
-          currentX,
-          currentY - this.LINE_LENGTH
-        );
-        this.currentState.y -= this.LINE_LENGTH;
+        this.moveForward();
+        break;
+      }
+      case "+": {
+        this.rotate(this.ROTATE_ANGLE);
+        break;
+      }
+      case "-": {
+        this.rotate(-this.ROTATE_ANGLE);
+        break;
       }
     }
+  };
+
+  private moveForward = () => {
+    const startX = this.currentState.x;
+    const startY = this.currentState.y;
+    const currentAngle = this.currentState.angle;
+    const endX =
+      startX - this.LINE_LENGTH * Math.sin((Math.PI * currentAngle) / 180);
+    const endY =
+      startY - this.LINE_LENGTH * Math.cos((Math.PI * currentAngle) / 180);
+    this.canvas.drawLine(startX, startY, endX, endY);
+    this.currentState.x = endX;
+    this.currentState.y = endY;
+  };
+
+  private rotate = (angle: number) => {
+    this.currentState.angle += angle;
   };
 }
 
