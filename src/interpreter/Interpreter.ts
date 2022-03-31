@@ -5,12 +5,15 @@ export default class Interpreter {
 
   private readonly LINE_LENGTH = 50;
   private readonly ROTATE_ANGLE = 15;
-
-  private currentState: CursorState = {
+  private readonly INIT_STATE = {
     x: 200,
     y: 300,
     angle: 0
   };
+
+  private currentState: CursorState = this.INIT_STATE;
+
+  private readonly stateStack: CursorState[] = [];
 
   interpret = (expression: string) => {
     for (let i = 0; i < expression.length; i++) {
@@ -33,6 +36,14 @@ export default class Interpreter {
         this.rotate(-this.ROTATE_ANGLE);
         break;
       }
+      case "[": {
+        this.pushState();
+        break;
+      }
+      case "]": {
+        this.popState();
+        break;
+      }
     }
   };
 
@@ -51,6 +62,17 @@ export default class Interpreter {
 
   private rotate = (angle: number) => {
     this.currentState.angle += angle;
+  };
+
+  private pushState = () => {
+    this.stateStack.push({ ...this.currentState });
+  };
+
+  private popState = () => {
+    const popState = this.stateStack.pop();
+    if (popState) {
+      this.currentState = popState;
+    }
   };
 }
 
