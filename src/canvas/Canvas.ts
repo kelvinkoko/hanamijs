@@ -9,11 +9,18 @@ export default class Canvas {
     this.layer = this.setupKonvaLayer(canvasContainerId);
   }
 
-  drawLine(x1: number, y1: number, x2: number, y2: number) {
+  drawLine(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    color: string,
+    width: number
+  ) {
     var redLine = new Line({
       points: [x1, y1, x2, y2],
-      stroke: "#000000",
-      strokeWidth: 1
+      stroke: color,
+      strokeWidth: width
     });
     this.layer.add(redLine);
   }

@@ -19,7 +19,7 @@ class App extends React.Component {
   private drawPlant(canvas: Canvas, iteration: number) {
     const axiom = "X";
     const rules = [
-      { from: "X", to: " F+[[X]-X]-F[-FX]+X" },
+      { from: "X", to: " F+[[X]-X]-F[-LX]+FL" },
       { from: "F", to: "FF" }
     ];
     const expression = this.generateExpression(axiom, rules, iteration);

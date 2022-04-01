@@ -25,7 +25,7 @@ export default class Interpreter {
   private execute = (command: string) => {
     switch (command) {
       case "F": {
-        this.moveForward();
+        this.drawLine("#0c611a");
         break;
       }
       case "+": {
@@ -44,10 +44,14 @@ export default class Interpreter {
         this.popState();
         break;
       }
+      case "L": {
+        this.drawLine("#15b02f", 3);
+        break;
+      }
     }
   };
 
-  private moveForward = () => {
+  private drawLine = (color: string, width: number = 1) => {
     const startX = this.currentState.x;
     const startY = this.currentState.y;
     const currentAngle = this.currentState.angle;
@@ -55,7 +59,7 @@ export default class Interpreter {
       startX - this.LINE_LENGTH * Math.sin((Math.PI * currentAngle) / 180);
     const endY =
       startY - this.LINE_LENGTH * Math.cos((Math.PI * currentAngle) / 180);
-    this.canvas.drawLine(startX, startY, endX, endY);
+    this.canvas.drawLine(startX, startY, endX, endY, color, width);
     this.currentState.x = endX;
     this.currentState.y = endY;
   };
