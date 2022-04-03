@@ -1,6 +1,7 @@
 import { LineCap } from "konva/lib/Shape";
 import Canvas from "../canvas/Canvas";
 import { getRandomBetween, getRandomInt, shouldDo } from "../utils/RandomUtils";
+import sleep from "../utils/Sleep";
 
 export default class Interpreter {
   constructor(private canvas: Canvas) {}
@@ -24,6 +25,14 @@ export default class Interpreter {
     for (let i = 0; i < expression.length; i++) {
       const command = expression.charAt(i);
       this.execute(command);
+    }
+  };
+
+  interpretStepwise = async (expression: string) => {
+    for (let i = 0; i < expression.length; i++) {
+      const command = expression.charAt(i);
+      this.execute(command);
+      await sleep(1);
     }
   };
 
