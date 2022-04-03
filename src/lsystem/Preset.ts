@@ -9,4 +9,15 @@ export default class Preset {
       { from: "F", to: "FF" }
     ]
   };
+  static SAKURA: PlantModel = {
+    name: "桜",
+    axiom: "TTTTTTTTTTTT[b][+a]-b",
+    rules: [
+      { from: "F", to: "GF" },
+      { from: "a", to: "F[+xL]+b" },
+      { from: "b", to: "F[-yL]-a" },
+      { from: "x", to: "+a" },
+      { from: "y", to: "-b" }
+    ]
+  };
 }

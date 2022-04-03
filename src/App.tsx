@@ -1,20 +1,20 @@
 import * as React from "react";
 import { hot } from "react-hot-loader/root";
+import styles from "./App.module.css";
 import Canvas from "./canvas/Canvas";
 import Interpreter from "./interpreter/Interpreter";
 import LSystem from "./lsystem/LSystem";
 import PlantModel from "./lsystem/PlantModel";
 import Preset from "./lsystem/Preset";
 import Rule from "./lsystem/Rule";
-
 class App extends React.Component {
   render() {
-    const canvas = new Canvas("canvas");
-    const plant = Preset.FRACTAL_PLANT;
-    this.draw(canvas, plant, 6);
+    const canvas = new Canvas("canvas", 600, 500);
+    const plant = Preset.SAKURA;
+    this.draw(canvas, plant, 16);
     return (
       <>
-        <h1>{plant.name}</h1>
+        <h1 className={styles.name}> {plant.name}</h1>
       </>
     );
   }
@@ -26,6 +26,7 @@ class App extends React.Component {
       iteration
     );
     const interpreter = new Interpreter(canvas);
+    console.log(expression);
     interpreter.interpret(expression);
   }
 
