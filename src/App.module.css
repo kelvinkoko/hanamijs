@@ -15,6 +15,10 @@
   justify-content: center;
 }
 
+.canvas {
+  margin: auto;
+}
+
 .refreshButton {
   cursor: pointer;
   user-select: none;

@@ -33,7 +33,7 @@ const App = () => {
           🌸 生成する
         </div>
       </div>
-      <div id={CANVAS_CONTAINER_ID} />
+      <div className={styles.canvas} id={CANVAS_CONTAINER_ID} />
     </div>
   );
 };
