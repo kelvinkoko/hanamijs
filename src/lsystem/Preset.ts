@@ -7,7 +7,8 @@ export default class Preset {
     rules: [
       { from: "X", to: " F+[[X]-X]-F[-LX]+FL" },
       { from: "F", to: "FF" }
-    ]
+    ],
+    defaultIteration: 6
   };
   static SAKURA: PlantModel = {
     name: "桜",
@@ -18,6 +19,7 @@ export default class Preset {
       { from: "b", to: "F[-yL]-a" },
       { from: "x", to: "+a" },
       { from: "y", to: "-b" }
-    ]
+    ],
+    defaultIteration: 16
   };
 }

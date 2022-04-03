@@ -11,7 +11,7 @@ class App extends React.Component {
   render() {
     const canvas = new Canvas("canvas", 600, 500);
     const plant = Preset.SAKURA;
-    this.draw(canvas, plant, 16);
+    this.draw(canvas, plant, plant.defaultIteration);
     return (
       <>
         <h1 className={styles.name}> {plant.name}</h1>
