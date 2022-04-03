@@ -1,12 +1,13 @@
 const webpack = require("webpack");
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const config = {
   entry: ["react-hot-loader/patch", "./src/index.tsx"],
   output: {
     path: path.resolve(__dirname, "./"),
-    filename: "bundle.js"
+    filename: "bundle.[hash:6].js"
   },
   module: {
     rules: [
@@ -58,8 +59,8 @@ const config = {
     }
   },
   plugins: [
-    new CopyPlugin({
-      patterns: [{ from: "src/index.html" }]
+    new HtmlWebpackPlugin({
+      template: "src/index.html"
     })
   ],
   resolve: {
