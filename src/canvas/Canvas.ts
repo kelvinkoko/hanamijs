@@ -21,6 +21,7 @@ export default class Canvas {
   }
 
   getWidth(): number {
+    console.log(this.layer.getWidth());
     return this.layer.getWidth();
   }
 
@@ -59,5 +60,9 @@ export default class Canvas {
     const layer = new Layer();
     stage.add(layer);
     return stage;
+  };
+
+  clear = () => {
+    this.layer.destroyChildren();
   };
 }

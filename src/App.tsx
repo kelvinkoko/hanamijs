@@ -14,12 +14,23 @@ class App extends React.Component {
     this.draw(canvas, plant, plant.defaultIteration);
     return (
       <>
-        <h1 className={styles.name}> {plant.name}</h1>
+        {/* <h1 className={styles.name}> {plant.name}</h1> */}
+        <div className={styles.header}>
+          <div
+            className={styles.refreshButton}
+            onClick={() => {
+              this.draw(canvas, plant, plant.defaultIteration);
+            }}
+          >
+            🌸 生成する
+          </div>
+        </div>
       </>
     );
   }
 
   private draw(canvas: Canvas, model: PlantModel, iteration: number) {
+    canvas.clear();
     const expression = this.generateExpression(
       model.axiom,
       model.rules,

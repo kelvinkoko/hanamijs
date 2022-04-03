@@ -20,6 +20,6 @@ export default class Preset {
       { from: "x", to: "+a" },
       { from: "y", to: "-b" }
     ],
-    defaultIteration: 16
+    defaultIteration: 14
   };
 }
