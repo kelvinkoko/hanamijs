@@ -8,32 +8,41 @@ import PlantModel from "./lsystem/PlantModel";
 import Preset from "./lsystem/Preset";
 import Rule from "./lsystem/Rule";
 class App extends React.Component {
+  private canvas: Canvas | undefined;
+  private plant: PlantModel | undefined;
+
   render() {
-    const canvas = new Canvas("canvas", 600, 500);
-    const plant = Preset.SAKURA;
-    this.draw(canvas, plant, plant.defaultIteration);
     return (
-      <>
+      <div className={styles.container}>
         <div className={styles.header}>
           <div
             className={styles.refreshButton}
             onClick={() => {
-              this.draw(canvas, plant, plant.defaultIteration);
+              if (this.canvas && this.plant) {
+                this.draw(this.canvas, this.plant);
+              }
             }}
           >
             🌸 生成する
           </div>
         </div>
-      </>
+        <div id="canvas" />
+      </div>
     );
   }
 
-  private draw(canvas: Canvas, model: PlantModel, iteration: number) {
+  componentDidMount() {
+    this.canvas = new Canvas("canvas", 600, 500);
+    this.plant = Preset.SAKURA;
+    this.draw(this.canvas, this.plant);
+  }
+
+  private draw(canvas: Canvas, model: PlantModel) {
     canvas.clear();
     const expression = this.generateExpression(
       model.axiom,
       model.rules,
-      iteration
+      model.defaultIteration
     );
     const interpreter = new Interpreter(canvas);
     interpreter.interpret(expression);
