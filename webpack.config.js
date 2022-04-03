@@ -5,7 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const config = {
   entry: ["react-hot-loader/patch", "./src/index.tsx"],
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "./"),
     filename: "bundle.js"
   },
   module: {
