@@ -21,7 +21,6 @@ export default class Canvas {
   }
 
   getWidth(): number {
-    console.log(this.layer.getWidth());
     return this.layer.getWidth();
   }
 

@@ -14,7 +14,6 @@ class App extends React.Component {
     this.draw(canvas, plant, plant.defaultIteration);
     return (
       <>
-        {/* <h1 className={styles.name}> {plant.name}</h1> */}
         <div className={styles.header}>
           <div
             className={styles.refreshButton}
@@ -37,7 +36,6 @@ class App extends React.Component {
       iteration
     );
     const interpreter = new Interpreter(canvas);
-    console.log(expression);
     interpreter.interpret(expression);
   }
 
