@@ -67,8 +67,8 @@ export default class Interpreter {
         if (this.currentState.stemWidth < 1) {
           this.currentState.stemWidth = 1;
         }
-        if (shouldDo(0.5)) {
-          this.currentState.stemLength *= 0.7;
+        if (shouldDo(0.6)) {
+          this.currentState.stemLength *= 0.9;
         }
         if (this.currentState.stemLength < 1) {
           this.currentState.stemLength = 1;
