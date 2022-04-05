@@ -1,20 +1,18 @@
 import { LineCap } from "konva/lib/Shape";
 import Canvas from "../canvas/Canvas";
+import PlantModel from "../lsystem/PlantModel";
 import { getRandomBetween, getRandomInt, shouldDo } from "../utils/RandomUtils";
 import sleep from "../utils/Sleep";
 
 export default class Interpreter {
-  constructor(private canvas: Canvas) {}
+  constructor(private canvas: Canvas, private plant: PlantModel) {}
 
-  private readonly LEAF_COLORS = ["#f5d5f5", "#f5e6f5", "#fff5ff"];
-  private readonly ROTATE_ANGLE = 20;
-  private readonly ANGLE_DERIVATION = 6;
   private readonly INIT_STATE = {
     x: this.canvas.getWidth() / 2,
     y: this.canvas.getHeight(),
     angle: 0,
-    stemLength: 5,
-    stemWidth: 20
+    stemLength: this.plant.stemLength,
+    stemWidth: this.plant.stemWidth
   };
 
   private currentState: DrawState = this.INIT_STATE;
@@ -40,13 +38,13 @@ export default class Interpreter {
     switch (command) {
       case "G":
       case "F": {
-        if (!shouldDo(0.7)) {
+        if (!shouldDo(this.plant.stemDrawChance)) {
           break;
         }
       }
       case "T": {
         this.drawLine(
-          "#474a3d",
+          this.plant.stemColor,
           this.currentState.stemLength,
           this.currentState.stemWidth,
           "round"
@@ -56,8 +54,8 @@ export default class Interpreter {
       case "+": {
         this.rotate(
           getRandomBetween(
-            this.ROTATE_ANGLE - this.ANGLE_DERIVATION,
-            this.ROTATE_ANGLE + this.ANGLE_DERIVATION
+            this.plant.angle - this.plant.angleDerivation,
+            this.plant.angle + this.plant.angleDerivation
           )
         );
         break;
@@ -65,19 +63,19 @@ export default class Interpreter {
       case "-": {
         this.rotate(
           -getRandomBetween(
-            this.ROTATE_ANGLE - this.ANGLE_DERIVATION,
-            this.ROTATE_ANGLE + this.ANGLE_DERIVATION
+            this.plant.angle - this.plant.angleDerivation,
+            this.plant.angle + this.plant.angleDerivation
           )
         );
         break;
       }
       case "[": {
-        this.currentState.stemWidth *= 0.75;
+        this.currentState.stemWidth *= this.plant.stemWidthReductionRatio;
         if (this.currentState.stemWidth < 1) {
           this.currentState.stemWidth = 1;
         }
-        if (shouldDo(0.6)) {
-          this.currentState.stemLength *= 0.9;
+        if (shouldDo(this.plant.stemLengthReductionChance)) {
+          this.currentState.stemLength *= this.plant.stemLengthReductionRatio;
         }
         if (this.currentState.stemLength < 1) {
           this.currentState.stemLength = 1;
@@ -90,14 +88,19 @@ export default class Interpreter {
         break;
       }
       case "L": {
-        this.drawLine(this.getLeafColor(), 8, 8);
+        this.drawLine(
+          this.getLeafColor(),
+          this.plant.leafLength,
+          this.plant.leafWidth
+        );
         break;
       }
     }
   };
 
   private getLeafColor = (): string => {
-    return this.LEAF_COLORS[getRandomInt(this.LEAF_COLORS.length)];
+    const leafColors = this.plant.leafColors;
+    return leafColors[getRandomInt(leafColors.length)];
   };
 
   private drawLine = (

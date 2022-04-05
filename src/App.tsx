@@ -43,9 +43,9 @@ const draw = (canvas: Canvas, model: PlantModel) => {
   const expression = generateExpression(
     model.axiom,
     model.rules,
-    model.defaultIteration
+    model.iteration
   );
-  const interpreter = new Interpreter(canvas);
+  const interpreter = new Interpreter(canvas, model);
   interpreter.interpret(expression);
 };
 
