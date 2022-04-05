@@ -8,6 +8,7 @@ import LSystem from "./lsystem/LSystem";
 import PlantModel from "./lsystem/PlantModel";
 import Preset from "./lsystem/Preset";
 import Rule from "./lsystem/Rule";
+import GenerateButton from "./ui/GenerateButton";
 
 const App = () => {
   const PLANT: PlantModel = Preset.SAKURA;
@@ -22,16 +23,13 @@ const App = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div
-          className={styles.refreshButton}
+        <GenerateButton
           onClick={() => {
             if (canvas) {
               draw(canvas, PLANT);
             }
           }}
-        >
-          🌸 生成する
-        </div>
+        />
       </div>
       <div className={styles.canvas} id={CANVAS_CONTAINER_ID} />
     </div>
