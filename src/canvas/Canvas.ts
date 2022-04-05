@@ -1,6 +1,7 @@
 import { Layer } from "konva/lib/Layer";
 import { LineCap } from "konva/lib/Shape";
 import { Line } from "konva/lib/shapes/Line";
+import { Rect } from "konva/lib/shapes/Rect";
 import { Stage } from "konva/lib/Stage";
 
 export default class Canvas {
@@ -63,5 +64,14 @@ export default class Canvas {
 
   clear = () => {
     this.layer.destroyChildren();
+    const background = new Rect({
+      x: 0,
+      y: 0,
+      width: this.stage.width(),
+      height: this.stage.height(),
+      fill: "#fdfcf8",
+      listening: false
+    });
+    this.layer.add(background);
   };
 }
