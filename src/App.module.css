@@ -3,20 +3,19 @@
   text-align: center;
 }
 
-.header {
+.container {
+  padding: 15px;
   display: flex;
-  padding-top: 30px;
+  flex-direction: column;
   justify-content: center;
 }
 
-.refreshButton {
-  cursor: pointer;
-  user-select: none;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  border-radius: 50px;
-  color: rgb(75, 75, 72);
-  padding: 5px 10px 5px 10px;
-  border: 1px solid #b5b5b5;
+.header {
+  display: flex;
+  margin: 15px;
+  justify-content: center;
+}
+
+.canvas {
+  margin: auto;
 }

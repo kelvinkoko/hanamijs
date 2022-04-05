@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import { hot } from "react-hot-loader/root";
 import styles from "./App.module.css";
 import Canvas from "./canvas/Canvas";
@@ -7,52 +8,56 @@ import LSystem from "./lsystem/LSystem";
 import PlantModel from "./lsystem/PlantModel";
 import Preset from "./lsystem/Preset";
 import Rule from "./lsystem/Rule";
-class App extends React.Component {
-  render() {
-    const canvas = new Canvas("canvas", 600, 500);
-    const plant = Preset.SAKURA;
-    this.draw(canvas, plant, plant.defaultIteration);
-    return (
-      <>
-        {/* <h1 className={styles.name}> {plant.name}</h1> */}
-        <div className={styles.header}>
-          <div
-            className={styles.refreshButton}
-            onClick={() => {
-              this.draw(canvas, plant, plant.defaultIteration);
-            }}
-          >
-            🌸 生成する
-          </div>
-        </div>
-      </>
-    );
-  }
+import GenerateButton from "./ui/GenerateButton";
 
-  private draw(canvas: Canvas, model: PlantModel, iteration: number) {
-    canvas.clear();
-    const expression = this.generateExpression(
-      model.axiom,
-      model.rules,
-      iteration
-    );
-    const interpreter = new Interpreter(canvas);
-    console.log(expression);
-    interpreter.interpret(expression);
-  }
+const App = () => {
+  const PLANT: PlantModel = Preset.SAKURA;
+  const CANVAS_CONTAINER_ID = "canvas";
+  let canvas: Canvas | undefined;
 
-  private generateExpression(
-    axiom: string,
-    rules: Rule[],
-    iteration: number
-  ): string {
-    const lSystem = new LSystem();
-    let expression = axiom;
-    for (let i = 0; i < iteration; i++) {
-      expression = lSystem.applyRules(expression, rules);
-    }
-    return expression;
+  useEffect(() => {
+    canvas = new Canvas(CANVAS_CONTAINER_ID, 600, 500);
+    draw(canvas, PLANT);
+  }, []);
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <GenerateButton
+          onClick={() => {
+            if (canvas) {
+              draw(canvas, PLANT);
+            }
+          }}
+        />
+      </div>
+      <div className={styles.canvas} id={CANVAS_CONTAINER_ID} />
+    </div>
+  );
+};
+
+const draw = (canvas: Canvas, model: PlantModel) => {
+  canvas.clear();
+  const expression = generateExpression(
+    model.axiom,
+    model.rules,
+    model.iteration
+  );
+  const interpreter = new Interpreter(canvas, model);
+  interpreter.interpret(expression);
+};
+
+const generateExpression = (
+  axiom: string,
+  rules: Rule[],
+  iteration: number
+): string => {
+  const lSystem = new LSystem();
+  let expression = axiom;
+  for (let i = 0; i < iteration; i++) {
+    expression = lSystem.applyRules(expression, rules);
   }
-}
+  return expression;
+};
 
 export default hot(App);
