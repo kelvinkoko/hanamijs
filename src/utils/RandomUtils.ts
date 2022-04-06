@@ -1,9 +1,13 @@
+const seedrandom = require("seedrandom");
+// TODO: Use seed here
+const random = seedrandom();
+
 export const getRandomBetween = (min: number, max: number): number => {
-  return Math.random() * (max - min) + min;
+  return random() * (max - min) + min;
 };
 
 export const getRandomInt = (max: number): number => {
-  return Math.floor(Math.random() * max);
+  return Math.floor(random() * max);
 };
 
 /**
@@ -11,5 +15,5 @@ export const getRandomInt = (max: number): number => {
  * 100% must do, 0.5 mean 50% chance to do.
  */
 export const shouldDo = (probability: number): boolean => {
-  return Math.random() >= 1 - probability;
+  return random() >= 1 - probability;
 };
