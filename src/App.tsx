@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useEffect } from "react";
-import { hot } from "react-hot-loader/root";
 import styles from "./App.module.css";
 import Canvas from "./canvas/Canvas";
 import Interpreter from "./interpreter/Interpreter";
@@ -60,4 +59,4 @@ const generateExpression = (
   return expression;
 };
 
-export default hot(App);
+export default App;
