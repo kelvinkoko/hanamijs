@@ -1,6 +1,27 @@
 import PlantModel from "./PlantModel";
 
 export default class Preset {
+  static CUSTOM: PlantModel = {
+    name: "Custom",
+    axiom: "L",
+    rules: [
+      { from: "G", to: "GG" },
+      { from: "L", to: "G[+L]-L" }
+    ],
+    angle: 25,
+    iteration: 5,
+    stemColor: "#000000",
+    stemDrawChance: 1,
+    stemLength: 5,
+    stemLengthReductionRatio: 0,
+    stemLengthReductionChance: 0,
+    stemWidth: 1,
+    stemWidthReductionRatio: 1,
+    leafColors: ["#2bb01c"],
+    leafLength: 10,
+    leafWidth: 1,
+    angleDerivation: 0
+  };
   static FRACTAL_PLANT: PlantModel = {
     name: "Barnsley Fern",
     axiom: "X",
